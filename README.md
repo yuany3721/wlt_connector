@@ -13,4 +13,6 @@ After your editing, you can use `python connect.py -l` to find out if there is a
 ## Usage
 If you fully configured all settings you want online or in `connect.ini`, you can easily use this script by simply `python connect.py`.
 
+To use this script in different directories, config `-i/--ini` is provided for select specific ini file. You can use this config like this: `python path/to/connect.py -i path/to/connect.ini`
+
 Meanwhile, all fields in `connect.ini` are supported in command line for temporarily use. You can use `python connect.py -h` to see more.

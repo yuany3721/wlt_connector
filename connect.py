@@ -100,18 +100,27 @@ def local_conf(name: str, password: str, typ: str, exp: str):
 
 
 if __name__ == "__main__":
+    ini_file = "connect.ini"
+    opts, args = getopt.getopt(sys.argv[1:], "hlu:p:t:d:c:i:",
+                               ["help", "list", "username=", "password=" "type=", "duration=", "config=", "ini="])
+    for opt, arg in opts:
+        if opt == "-i" or opt == "-ini":
+            ini_file = arg
     cp = configparser.ConfigParser()
-    cp.read("connect.ini")
-    name = cp.get("user", "name")
-    password = cp.get("user", "password")
-    conf = cp.get("set", "conf")
-    typ = cp.get("set", "type")
-    exp = cp.get("set", "duration")
+    cp.read(ini_file)
+    try:
+        name = cp.get("user", "name")
+        password = cp.get("user", "password")
+        conf = cp.get("set", "conf")
+        typ = cp.get("set", "type")
+        exp = cp.get("set", "duration")
+    except configparser.NoSectionError:
+        print("Error in config file")
+        exit(0)
 
-    opts, args = getopt.getopt(sys.argv[1:], "hlu:p:t:d:c:",
-                               ["help","list", "username=", "password=" "type=", "duration=", "config="])
-    for opts, arg in opts:
-        if opts == "-h" or opts == "--help":
+
+    for opt, arg in opts:
+        if opt == "-h" or opt == "--help":
             print("python connect.py")
             print("-u\t--username\n\t当前配置: " + name)
             print("-p\t--password\n\t当前配置: " + password)
@@ -126,7 +135,7 @@ if __name__ == "__main__":
             print_dict(CONF_DICT, "\t\t")
             print("\t*在线配置会忽略本地type和duration配置")
             exit(0)
-        if opts == "-l" or opts == "--list":
+        if opt == "-l" or opt == "--list":
             print("当前配置：")
             print("\tusername: " + name)
             print("\tpassword: " + password)
@@ -143,15 +152,15 @@ if __name__ == "__main__":
             except KeyError:
                 print("\tError in [set].duration: " + exp)
             exit(0)
-        if opts == "-u" or opts == "--username":
+        if opt == "-u" or opt == "--username":
             name = arg
-        if opts == "-p" or opts == "--password":
+        if opt == "-p" or opt == "--password":
             password = arg
-        if opts == "-t" or opts == "--type":
+        if opt == "-t" or opt == "--type":
             typ = arg
-        if opts == "-d" or opts == "--duration":
+        if opt == "-d" or opt == "--duration":
             exp = arg
-        if opts == "-c" or opts == "--config":
+        if opt == "-c" or opt == "--config":
             conf = arg
 
     if conf not in CONF_DICT.keys():
