@@ -1,5 +1,6 @@
 # wlt_connector
 中科大网络通授权脚本
+see also [网络通帐号在Linux命令行下如何使用？](https://netfee.ustc.edu.cn/faq/index.html#howtousewltterm)
 
 ## Initialization
 Before using this script, you should edit `[user]` field in `connect.ini` with your own wlt account.
